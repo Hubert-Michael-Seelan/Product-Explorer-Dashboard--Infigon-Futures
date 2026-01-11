@@ -174,35 +174,6 @@ Prevents hydration mismatches between server and client
 
 Ensures stable production builds
 
-📂 Folder Structure
-src/
-├── app/
-│   ├── page.tsx
-│   ├── products/
-│   │   └── [id]/page.tsx
-│   ├── layout.tsx
-│   └── globals.css
-│
-├── components/
-│   ├── product/
-│   │   ├── ProductCard.tsx
-│   │   ├── ProductGrid.tsx
-│   │   └── FavoriteButton.tsx
-│   ├── filters/
-│   │   ├── SearchInput.tsx
-│   │   └── CategoryFilter.tsx
-│   └── ui/
-│       ├── DarkModeToggle.tsx
-│       └── ThemeProvider.tsx
-│
-├── hooks/
-│   └── useFavorites.ts
-│
-├── lib/
-│   └── api.ts
-│
-├── types/
-│   └── product.ts
 
 ⚙️ Setup Instructions
 1️⃣ Clone the Repository
