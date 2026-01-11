@@ -8,7 +8,7 @@ export async function fetchProducts(): Promise<Product[]> {
       cache: "no-store",
       next: { revalidate: 60 }, // Cache for 60 seconds
     });
-
+    console.log(res)
     if (!res.ok) {
       console.error(`Failed to fetch products (${res.status})`);
       return []; // Return empty array instead of throwing
@@ -32,7 +32,7 @@ export async function fetchProductById(id: string): Promise<Product | null> {
       cache: "no-store",
       next: { revalidate: 60 },
     });
-
+    console.log(res)
     if (!res.ok) {
       console.error(`Failed to fetch product ${id} (${res.status})`);
       return null;
