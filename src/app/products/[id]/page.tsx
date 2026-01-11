@@ -1,28 +1,43 @@
-export const dynamic = "force-dynamic";
+// src/app/products/[id]/page.tsx
 import Image from "next/image";
-import Link from "next/link";
-import { fetchProductById } from "@/lib/api";
 import { notFound } from "next/navigation";
+import { fetchProductById } from "@/lib/api";
+import FavoriteButton from "@/components/product/FavoriteButton";
+import Link from "next/link";
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export const dynamic = "force-dynamic";
+
+type Props = {
+  params: Promise<{ id?: string }>;
+};
+
+export default async function ProductPage({ params }: Props) {
   const { id } = await params;
 
+  // 1) Validate early
   if (!id) {
-    notFound();
+    console.error("Server: Product ID is required (missing route param)");
+    return notFound();
   }
 
-  const product = await fetchProductById(id);
+  // 2) Fetch safely
+  let product;
+  try {
+    product = await fetchProductById(id);
+  } catch (err: any) {
+    console.error("Server: error fetching product", err?.message ?? err);
+    return notFound();
+  }
+
+  if (!product) {
+    return notFound();
+  }
 
   return (
     <div className="p-6 max-w-3xl mx-auto relative">
       <Link
         href="/"
-        className="absolute top-6 left-6 flex items-center gap-1 text-sm font-medium text-gray-600 hover:bg-gray-100 px-2 py-1 rounded
-        "
+        className="absolute top-6 left-6 flex items-center gap-1 text-sm font-medium text-gray-600 hover:bg-gray-100 px-2 py-1 rounded"
       >
         <svg
           className="w-4 h-4"
@@ -52,16 +67,13 @@ export default async function ProductPage({
         />
       </div>
 
-      {/* Content */}
-      <h1 className="text-2xl font-bold mt-6">{product.title}</h1>
+      <h1 className="text-2xl font-bold mt-4">{product.title}</h1>
+      <p className="text-gray-600 mt-2">{product.description}</p>
+      <p className="mt-4 font-bold">${product.price}</p>
+      <p className="text-sm text-gray-500 capitalize">{product.category}</p>
 
-      <p className="text-gray-600 mt-3 leading-relaxed">
-        {product.description}
-      </p>
-
-      <div className="mt-6 flex items-center justify-between">
-        <p className="text-xl font-semibold">${product.price}</p>
-        <p className="text-sm text-gray-500 capitalize">{product.category}</p>
+      <div className="mt-4">
+        <FavoriteButton productId={product.id} />
       </div>
     </div>
   );
