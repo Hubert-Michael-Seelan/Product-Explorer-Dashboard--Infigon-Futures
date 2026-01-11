@@ -40,7 +40,6 @@ export default async function ProductPage({
         Back
       </Link>
 
-      {/* Image */}
       <div className="relative h-80 w-full mt-6">
         <Image
           src={product.image}
@@ -49,6 +48,7 @@ export default async function ProductPage({
           className="object-contain"
           sizes="(max-width: 768px) 100vw, 768px"
           priority
+          loading="eager"
         />
       </div>
 

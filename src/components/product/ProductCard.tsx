@@ -23,14 +23,18 @@ export default function ProductCard({ product }: { product: Product }) {
           relative z-10
         "
       >
-        <div className="relative bg-gray-50 dark:bg-gray-900 p-4 h-56">
-          <Link href={`/products/${product.id}`}>
+        <div className="bg-gray-50 dark:bg-gray-900 p-4 h-56">
+          <Link
+            href={`/products/${product.id}`}
+            className="relative block h-full"
+          >
             <Image
               src={product.image}
               alt={product.title}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-contain"
+              loading="eager"
             />
           </Link>
 
