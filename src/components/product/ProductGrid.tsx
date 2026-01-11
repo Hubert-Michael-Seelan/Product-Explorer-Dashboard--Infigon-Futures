@@ -16,7 +16,7 @@ export default function ProductGrid({ products }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const { favorites } = useFavorites();
-  console.log("Product", products)
+  console.log("Product", products);
 
   const filtered = products.filter((p) => {
     const matchTitle = p.title.toLowerCase().includes(search.toLowerCase());
@@ -28,7 +28,7 @@ export default function ProductGrid({ products }: Props) {
 
     return matchTitle && matchCategory;
   });
-  console.log("Filtered", filtered)
+  console.log("Filtered", filtered);
   return (
     <>
       <div className="flex flex-col gap-4 mt-6 mb-8">
@@ -53,11 +53,17 @@ export default function ProductGrid({ products }: Props) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {products.length === 0 ? (
+        <p className="text-center text-red-500 mt-10">
+          No Product
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filtered.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
