@@ -16,6 +16,7 @@ export default function ProductGrid({ products }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const { favorites } = useFavorites();
+  console.log("Product", products)
 
   const filtered = products.filter((p) => {
     const matchTitle = p.title.toLowerCase().includes(search.toLowerCase());
@@ -27,7 +28,7 @@ export default function ProductGrid({ products }: Props) {
 
     return matchTitle && matchCategory;
   });
-
+  console.log("Filtered", filtered)
   return (
     <>
       <div className="flex flex-col gap-4 mt-6 mb-8">
